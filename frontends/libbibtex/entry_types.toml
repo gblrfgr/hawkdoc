@@ -1,0 +1,55 @@
+[required]
+article = ["author", "title", "journal", "year", "volume"]
+book = ["author|editor", "title", "publisher", "year"]
+booklet = ["title"]
+inbook = ["author|editor", "title", "chapter|pages", "publisher", "year"]
+incollection = ["author", "title", "booktitle", "publisher", "year"]
+inproceedings = ["author", "title", "booktitle", "year"]
+conference = ["author", "title", "booktitle", "year"]
+manual = ["title"]
+mastersthesis = ["author", "title", "school", "year"]
+misc = []
+phdthesis = ["author", "title", "school", "year"]
+proceedings = ["title", "year"]
+techreport = ["author", "title", "institution", "year"]
+unpublished = ["author", "title", "note"]
+
+[optional]
+article = ["number", "pages", "month", "doi", "note", "key"]
+book = [
+    "volume",
+    "number",
+    "series",
+    "address",
+    "edition",
+    "month",
+    "note",
+    "key",
+    "url",
+]
+booklet = ["author", "howpublished", "address", "month", "year", "note", "key"]
+inbook = [
+    "volume",
+    "number",
+    "series",
+    "type",
+    "address",
+    "edition",
+    "month",
+    "note",
+    "key",
+]
+incollection = [
+    "editor",
+    "volume",
+    "number",
+    "series",
+    "type",
+    "chapter",
+    "pages",
+    "address",
+    "edition",
+    "month",
+    "note",
+    "key",
+]
