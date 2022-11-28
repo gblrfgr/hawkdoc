@@ -1,10 +1,11 @@
 import types
+import typing
 import unittest
 import hawkdoc.docstring
 import hawkdoc.module
 
 
-def parse_module_docstring(doc: str) -> tuple[str, str]:
+def parse_module_docstring(doc: str) -> tuple[str, typing.Optional[str]]:
     doc = hawkdoc.docstring.trim(doc).splitlines()
     short_desc = doc[0]
     if len(doc) > 1:
@@ -58,10 +59,10 @@ def parse_function_docstring(doc: str) -> hawkdoc.doc_entry.FunctionEntry:
         lines.pop(0)
 
     sections = {
-        "LongDesc:": None,
-        "Args:": None,
-        "Raises:": None,
-        "Returns:": None,
+        "LongDesc:": "",
+        "Args:": "",
+        "Raises:": "",
+        "Returns:": "",
     }
     current = "LongDesc:"
     sections[current] = ""

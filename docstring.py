@@ -32,7 +32,7 @@ def trim(docstring: str) -> str:
         return ""
     # Convert tabs to spaces (following the normal Python rules)
     # and split into a list of lines:
-    lines = docstring.expandtabs(4).splitlines()
+    lines = docstring.expandtabs().splitlines()
     # Determine minimum indentation (first line doesn't count):
     indent = sys.maxsize
     for line in lines[1:]:

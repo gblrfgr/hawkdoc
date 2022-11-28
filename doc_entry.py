@@ -1,17 +1,37 @@
 import dataclasses
+import logging
+import typing
 
 
 @dataclasses.dataclass
-class Field:
-    name: str
-    typename: str
-    desc: str
+class Incorporable:
+    def __getitem__(self, key):
+        pass
+
+    def __setitem__(self, key, val):
+        pass
+
+    def incorporate(self, other):
+        for f in dataclasses.fields(self):
+            if self[f.name]:
+                if other[f.name] and self[f.name] != other[f.name]:
+                    logging.error(
+                        f'Could not merge field "{f.name}"'
+                        f'(reason: mismatched values "{self[f.name]}" and "{other[f.name]}")'
+                    )
+            else:
+                self[f.name] = other[f.name]
 
 
 @dataclasses.dataclass
-class DocEntry:
+class DocEntry(Incorporable):
     name: str
     short_desc: str
+
+
+@dataclasses.dataclass
+class FieldEntry(DocEntry):
+    typename: str
 
 
 @dataclasses.dataclass
@@ -32,23 +52,22 @@ class ModuleEntry(CompoundEntry):
 
 @dataclasses.dataclass
 class CallableEntry(CompoundEntry):
-    arguments: list[Field]
-    raises: list[Field]
+    arguments: list[FieldEntry]
+    raises: list[FieldEntry]
 
 
 @dataclasses.dataclass
 class FunctionEntry(CallableEntry):
-    returns: Field
+    returns: str 
 
 
 @dataclasses.dataclass
 class GeneratorEntry(CallableEntry):
-    yields: Field
+    yields: str
 
 
 @dataclasses.dataclass
 class ClassEntry(CompoundEntry):
     instance_vars: list[VariableEntry]
     static_vars: list[VariableEntry]
-    instance_methods: list[CallableEntry]
-    static_methods: list[CallableEntry]
+    methods: list[CallableEntry]

@@ -10,6 +10,8 @@ Declaration = collections.namedtuple("Declaration", ["name", "value"])
 def load_module(pathname: str) -> types.ModuleType:
     try:
         mod_name = inspect.getmodulename(pathname)
+        if not mod_name:
+            raise ValueError("couldn't determine module name")
         mod = importlib.import_module(mod_name)
     except Exception as e:
         raise ValueError(f'couldn\'t load module at "{pathname}" (reason: "{e}")')
